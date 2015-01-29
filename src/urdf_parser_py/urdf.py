@@ -203,6 +203,13 @@ class Inertia(xmlr.Object):
 xmlr.reflect(Inertia, params = [xmlr.Attribute(key, float) for key in Inertia.KEYS])
 
 
+class Gravity(xmlr.Object):
+	def __init__(self):
+            pass
+
+xmlr.reflect(Gravity, params = [
+	])
+
 class Inertial(xmlr.Object):
 	def __init__(self, mass = 0.0, inertia = None, origin=None):
 		self.mass = mass
@@ -313,19 +320,21 @@ xmlr.reflect(Joint, params = [
 
 
 class Link(xmlr.Object):
-	def __init__(self, name=None, visual=None, inertial=None, collision=None, origin = None):
+	def __init__(self, name=None, visual=None, inertial=None, collision=None, origin = None, gravity = None):
 		self.name = name
 		self.visual = visual
 		self.inertial = inertial
 		self.collision = collision
 		self.origin = origin
+                self.gravity = gravity
 
 xmlr.reflect(Link, params = [
 	name_attribute,
 	origin_element,
 	xmlr.Element('inertial', Inertial, False),
 	xmlr.Element('visual', Visual, False),
-	xmlr.Element('collision', Collision, False)
+	xmlr.Element('collision', Collision, False),
+	xmlr.Element('gravity', Gravity, False)
 	])
 
 
