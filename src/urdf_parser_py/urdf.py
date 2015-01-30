@@ -149,7 +149,7 @@ class Texture(xmlr.Object):
 		self.filename = filename
 
 xmlr.reflect(Texture, params = [
-	xmlr.Attribute('filename', str)
+	xmlr.Attribute('filename', str, required=False)
 	])
 
 
