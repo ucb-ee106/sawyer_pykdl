@@ -84,21 +84,16 @@ class baxter_kinematics(object):
     def joints_to_kdl(self, type, values=None):
         kdl_array = PyKDL.JntArray(self._num_jnts)
 
-        if type == 'positions':
-            if values is None:
+        if values is None:
+            if type == 'positions':
                 cur_type_values = self._limb_interface.joint_angles()
-            else:
-                cur_type_values = values
-        elif type == 'velocities':
-            if values is None:
+            elif type == 'velocities':
                 cur_type_values = self._limb_interface.joint_velocities()
-            else:
-                cur_type_values = values
-        elif type == 'torques':
-            if values is None:
+            elif type == 'torques':
                 cur_type_values = self._limb_interface.joint_efforts()
-            else:
-                cur_type_values = values
+        else:
+            cur_type_values = values
+        
         for idx, name in enumerate(self._joint_names):
             kdl_array[idx] = cur_type_values[name]
         if type == 'velocities':
