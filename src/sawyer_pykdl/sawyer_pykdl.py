@@ -32,26 +32,27 @@ import PyKDL
 
 import rospy
 
-import baxter_interface
+import intera_interface
 
-from baxter_kdl.kdl_parser import kdl_tree_from_urdf_model
+from sawyer_kdl.kdl_parser import kdl_tree_from_urdf_model
 from urdf_parser_py.urdf import URDF
 
-class baxter_kinematics(object):
+class sawyer_kinematics(object):
     """
-    Baxter Kinematics with PyKDL
+    Sawyer Kinematics with PyKDL
     """
     def __init__(self, limb):
-        self._baxter = URDF.from_parameter_server(key='robot_description')
-        self._kdl_tree = kdl_tree_from_urdf_model(self._baxter)
-        self._base_link = self._baxter.get_root()
+        self._sawyer = URDF.from_parameter_server(key='robot_description')
+        print('~');print(len(self._sawyer.joints));print('~')
+        self._kdl_tree = kdl_tree_from_urdf_model(self._sawyer)
+        self._base_link = self._sawyer.get_root()
         self._tip_link = limb + '_gripper'
         self._tip_frame = PyKDL.Frame()
         self._arm_chain = self._kdl_tree.getChain(self._base_link,
                                                   self._tip_link)
 
-        # Baxter Interface Limb Instances
-        self._limb_interface = baxter_interface.Limb(limb)
+        # Sawyer Interface Limb Instances
+        self._limb_interface = intera_interface.Limb(limb)
         self._joint_names = self._limb_interface.joint_names()
         self._num_jnts = len(self._joint_names)
 
@@ -68,12 +69,12 @@ class baxter_kinematics(object):
 
     def print_robot_description(self):
         nf_joints = 0
-        for j in self._baxter.joints:
+        for j in self._sawyer.joints:
             if j.type != 'fixed':
                 nf_joints += 1
         print "URDF non-fixed joints: %d;" % nf_joints
-        print "URDF total joints: %d" % len(self._baxter.joints)
-        print "URDF links: %d" % len(self._baxter.links)
+        print "URDF total joints: %d" % len(self._sawyer.joints)
+        print "URDF links: %d" % len(self._sawyer.links)
         print "KDL joints: %d" % self._kdl_tree.getNrOfJoints()
         print "KDL segments: %d" % self._kdl_tree.getNrOfSegments()
 
