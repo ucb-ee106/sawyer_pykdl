@@ -37,25 +37,18 @@ import intera_interface
 from sawyer_kdl.kdl_parser import kdl_tree_from_urdf_model
 from urdf_parser_py.urdf import URDF
 
-
 class sawyer_kinematics(object):
     """
     Sawyer Kinematics with PyKDL
     """
     def __init__(self, limb):
         self._sawyer = URDF.from_parameter_server(key='robot_description')
-        #print('~');print(len(self._sawyer.joints));print('~')
         self._kdl_tree = kdl_tree_from_urdf_model(self._sawyer)
         self._base_link = self._sawyer.get_root()
-        #self._tip_link = limb + '_gripper'
-
         self._tip_link = 'right_hand'
         self._tip_frame = PyKDL.Frame()
         self._arm_chain = self._kdl_tree.getChain(self._base_link,
                                                   self._tip_link)
-        print(self._base_link)
-        print(self._tip_link)
-        print('FRAME',self._tip_frame)
 
         # Sawyer Interface Limb Instances
         self._limb_interface = intera_interface.Limb(limb)
@@ -85,11 +78,8 @@ class sawyer_kinematics(object):
         print "KDL segments: %d" % self._kdl_tree.getNrOfSegments()
 
     def print_kdl_chain(self):
-        print("CHAIN")
-        print(self._arm_chain.getNrOfSegments())
         for idx in xrange(self._arm_chain.getNrOfSegments()):
             print '* ' + self._arm_chain.getSegment(idx).getName()
-            print('test')
 
     def joints_to_kdl(self, type, values=None):
         kdl_array = PyKDL.JntArray(self._num_jnts)
