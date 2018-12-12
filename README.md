@@ -84,7 +84,7 @@ The output should be an illustration of the various functions of `sawyer_kinemat
 ```
 *** Sawyer PyKDL Kinematics ***
 
-Material has neither a color nor textureMaterial has neither a color nor textureMaterial has neither a color nor textureMaterial has neither a color nor textureMaterial has neither a color nor textureMaterial has neither a color nor textureMaterial has neither a color nor textureMaterial has neither a color nor textureMaterial has neither a color nor textureMaterial has neither a color nor textureMaterial has neither a color nor texture
+Material has neither a color nor texture
 *** Sawyer Description ***
 
 URDF non-fixed joints: 8;
