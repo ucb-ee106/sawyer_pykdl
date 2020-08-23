@@ -74,7 +74,7 @@ joints:
 ...
 ```
 
-The second example script illustrates how to access important kinematic characteristics, like the Jacobian of the Sawyer arem in its current state:
+The second example script illustrates how to access important kinematic characteristics, like the Jacobian of the Sawyer arm in its current state:
 ```
 $ cd ~/ros_ws/src/sawyer_pykdl/scripts
 $ python sawyer_kinematics.py
